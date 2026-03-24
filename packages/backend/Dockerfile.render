@@ -85,6 +85,7 @@ COPY packages/webapp-libs/webapp-core/src/translations/translations_export.json 
 # Copy built email renderer from email_builder stage
 COPY --from=email_builder /build/packages/webapp-libs/webapp-emails/build/email-renderer/index.umd.js /app/scripts/runtime/email/renderer/index.umd.js
 
+RUN apt-get update && apt-get install -y dos2unix && dos2unix /app/scripts/runtime/*.sh
 RUN chmod +x /app/scripts/runtime/*.sh
 
 FROM backend_build AS static_files
